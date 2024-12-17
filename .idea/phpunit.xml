@@ -5,8 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/laravel-chat/tests" />
         <option value="$PROJECT_DIR$/laravel-chat_2/tests" />
-        <option value="$PROJECT_DIR$/laravel-reverb/tests" />
         <option value="$PROJECT_DIR$/laravel-chat_1/tests" />
+        <option value="$PROJECT_DIR$/laravel-reverb/tests" />
       </list>
     </option>
   </component>

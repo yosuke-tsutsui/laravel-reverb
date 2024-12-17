@@ -19,6 +19,13 @@ RUN apt-get update -y && apt-get install -y \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip pdo_mysql mbstring exif pcntl bcmath gd pdo
 
+# 必要なライブラリをインストール
+RUN apt-get update && apt-get install -y \
+    libxslt1-dev libxml2-dev
+
+# PHPのsockets拡張をインストール
+RUN docker-php-ext-install sockets
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

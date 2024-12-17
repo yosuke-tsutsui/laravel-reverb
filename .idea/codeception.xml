@@ -7,10 +7,10 @@
           <option name="path" value="$PROJECT_DIR$/tests" />
         </Configuration>
         <Configuration>
-          <option name="path" value="$PROJECT_DIR$/laravel-reverb/tests" />
+          <option name="path" value="$PROJECT_DIR$/laravel-chat_1/tests" />
         </Configuration>
         <Configuration>
-          <option name="path" value="$PROJECT_DIR$/laravel-chat_1/tests" />
+          <option name="path" value="$PROJECT_DIR$/laravel-reverb/tests" />
         </Configuration>
       </list>
     </option>
