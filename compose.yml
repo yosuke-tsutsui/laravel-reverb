@@ -1,0 +1,70 @@
+services:
+  laravel-reverb:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel-reverb
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: laravel
+      SERVICE_TAGS: dev
+    working_dir: /var/www/laravel-chat
+    volumes:
+      - ./laravel-reverb:/var/www/laravel-chat
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  db:
+    container_name: db
+    image: mysql:8.0
+    platform: linux/x86_64
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_DATABASE: "chat_db"
+      MYSQL_USER: "default_user"
+      MYSQL_PASSWORD: "secret_password"
+      MYSQL_ROOT_PASSWORD: "root_password"
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+
+  redis:
+    build:
+      context: .
+      dockerfile: ./docker/redis/Dockerfile
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "16379:6379"
+
+  node:
+    image: node:20.3.1-buster
+    container_name: node
+    tty: true
+    working_dir: /var/www
+    restart: unless-stopped
+    ports:
+      - "28080:8080"
+    volumes:
+      - ./frontend/:/var/www
+    environment:
+      PORT: 8080
+      HOST: 0.0.0.0
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "19100:9100"  # API用ポート
+      - "19101:9101"  # WebSocket用ポート
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+networks:
+  default:
+    name: my_reverb_network

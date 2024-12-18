@@ -38,7 +38,7 @@ const submit = () => {
     // axios.post(`http://localhost:9099/public-event`, {
     //   message: message.value
     // });
-    axios.get(`http://localhost:9100/public-event`);
+    axios.get(`http://localhost:19100/public-event`);
   } catch (error) {
     console.error('Error sending message:', error);
   }
@@ -49,12 +49,13 @@ const submit = () => {
  */
 echo.channel('channel-chat').listen('ChatEvent', (e) => {
   console.log(e);
+  chatHistory.value.unshift(e);
 });
 
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`http://localhost:9100/api/chat`);
+    const response = await axios.get(`http://localhost:19100/api/chat`);
     chatHistory.value = response.data.messages;
   } catch (error) {
     console.error('Error fetching chat history:', error);
