@@ -1,18 +1,36 @@
 services:
-  laravel-reverb:
+  web:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: laravel-reverb
+    container_name: web
     restart: unless-stopped
     tty: true
-    environment:
-      SERVICE_NAME: laravel
-      SERVICE_TAGS: dev
     working_dir: /var/www/laravel-chat
     volumes:
       - ./laravel-reverb:/var/www/laravel-chat
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  reverb1:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: reverb1
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/laravel-chat
+    volumes:
+      - ./laravel-reverb:/var/www/laravel-chat
+
+  reverb2:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: reverb2
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/laravel-chat
+    volumes:
+      - ./laravel-reverb:/var/www/laravel-chat
 
   db:
     container_name: db
