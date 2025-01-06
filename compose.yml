@@ -10,27 +10,27 @@ services:
     volumes:
       - ./laravel-reverb:/var/www/laravel-chat
 
-  reverb1:
+  echo1:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: reverb1
+    container_name: echo1
     restart: unless-stopped
     tty: true
-    working_dir: /var/www/laravel-chat
+    working_dir: /var/www/echo
     volumes:
-      - ./laravel-reverb:/var/www/laravel-chat
+      - ./echo:/var/www/echo
 
-  reverb2:
+  echo2:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    container_name: reverb2
+    container_name: echo2
     restart: unless-stopped
     tty: true
-    working_dir: /var/www/laravel-chat
+    working_dir: /var/www/echo
     volumes:
-      - ./laravel-reverb:/var/www/laravel-chat
+      - ./echo:/var/www/echo
 
   db:
     container_name: db
